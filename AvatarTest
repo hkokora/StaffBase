@@ -1,0 +1,43 @@
+import requests
+import pprint as pp
+
+token = 'Enter Yours'
+
+url_for_upload = "https://backend.staffbase.com/api/users/import/csv/upload"
+
+url_for_update = "https://backend.staffbase.com/api/users/import/csv/update"
+
+
+headers_for_update = {'Authorization' : f'Basic {token}',
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+          #  'Content-Type'  : 'multipart/form-data'
+            }
+
+headers_for_upload = {'Authorization' : f'Basic {token}',
+          #'Content-Type': 'multipart/form-data'
+            }
+
+
+data = {
+     'mappings': 'externalID,profile-field:firstName,profile-field:lastName,emails,,role,profile-field:avatar'}
+
+
+files = {
+    'csv': ('./hansassessment.csv', open('./hansassessment.csv', 'rb')),
+    'encoding': (None, 'windows-1252'),
+    'fieldSeparator': ','
+}
+
+def make_request(url=None, headers=None, files=None, data=None):
+    print("We are making a request...")
+    response = requests.post(url=url, headers=headers, files=files, data=data)
+    print("Request completed...")
+    return response.reason
+#
+# response_for_upload = requests.post(url=url_for_upload, headers=headers_for_upload, files=files)
+# response_for_update = requests.post(url=url_for_update, headers=headers_for_update, data=data)
+
+response_for_update = make_request(url=url_for_update, headers=headers_for_update, data=data)
+# pp.pprint(response_for_upload.reason)
+# pp.pprint(response_for_update.json())
+# print(response_for_update.reason)
