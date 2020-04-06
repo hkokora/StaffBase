@@ -10,9 +10,9 @@ class Avatar:
     def make_requests(self, data=None, file=None, method=None, headers=None):
         results = ''
         if method == 'POST':
-            results = requests.post(url=self.posts_url, data=data, headers=headers)
+            results = requests.post(url=self.avatar_url, data=data, headers=headers)
         else:
-            results = requests.get(url=self.posts_url, headers=self.common_headers, data=data, files=file)
+            results = requests.get(url=self.avatar_url, headers=self.common_headers, data=data, files=file)
 
         if self.debug:
             print(results.reason)
